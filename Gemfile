@@ -8,7 +8,7 @@ end
 # Use Bootsnap
 gem 'bootsnap', '~> 1.3.2'
 # Use Bootstrap
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.2'
 # Coffee
 gem 'coffee-rails'
 # CPF/CNPJ to validations
