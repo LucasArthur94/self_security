@@ -1,0 +1,8 @@
+p#notice
+  = notice
+.col-md-12
+    - if current_user
+        h1.text-center
+            = "Bem vindo, #{current_user.name}"
+    - else
+        h1.text-center Bem vindo, usuário

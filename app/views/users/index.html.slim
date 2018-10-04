@@ -1,0 +1,33 @@
+p#notice
+  = notice
+.col-md-12
+  h1.text-center Usuários
+  - if @users.present?
+    table.table
+      thead
+        tr scope="row"
+          th scope="col" colspan="5"
+            | Nome
+          th scope="col" colspan="5"
+            | E-mail
+          th scope="col" colspan="2"
+            | Ações
+      tbody
+        - @users.each do |user|
+          tr scope="row"
+            td colspan="5"
+              = user.name
+            td colspan="5"
+              = user.email
+            td colspan="2"
+              = link_to 'Ver mais', user
+              = " | "
+              = link_to 'Editar', edit_user_path(user)
+              = " | "
+              = link_to 'Apagar', user, method: :delete, data: { confirm: 'Você tem certeza?' }
+  - else
+    br/
+    h3.text-center Não há usuários
+  br/
+  .text-center
+    = button_to 'Novo usuário', new_user_path, { method: :get, class: 'btn btn-primary' }

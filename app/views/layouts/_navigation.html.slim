@@ -1,0 +1,11 @@
+.nav.col-md-12
+  nav.navbar.navbar-toggleable-md.navbar-light.bg-faded
+    a.navbar-brand href=home_path SelfSecurity
+    div
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          = link_to "Início", home_path, class: highlight_page_on_navigation(home_path)
+        li.nav-item
+          = link_to "Usuários", users_path, class: highlight_page_on_navigation(users_path)
+        li.nav-item
+          = link_to "Dispositivos", devices_path, class: highlight_page_on_navigation(devices_path)
