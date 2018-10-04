@@ -1,0 +1,33 @@
+p#notice
+  = notice
+.col-md-12
+  h1.text-center Dispositivos
+  - if @devices.present?
+    table.table
+      thead
+        tr scope="row"
+          th scope="col" colspan="5"
+            | Bluetooth ID
+          th scope="col" colspan="5"
+            | Usuário assosciado
+          th scope="col" colspan="2"
+            | Ações
+      tbody
+        - @devices.each do |device|
+          tr scope="row"
+            td colspan="5"
+              = device.bluetooth_id
+            td colspan="5"
+              = device.user
+            td colspan="2"
+              = link_to 'Ver mais', device
+              = " | "
+              = link_to 'Editar', edit_device_path(device)
+              = " | "
+              = link_to 'Apagar', device, method: :delete, data: { confirm: 'Você tem certeza?' }
+  - else
+    br/
+    h3.text-center Não há dispositivos
+  br/
+  .text-center
+    = button_to 'Novo dispositivo', new_device_path, { method: :get, class: 'btn btn-primary' }

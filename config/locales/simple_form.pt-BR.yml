@@ -1,0 +1,21 @@
+pt-BR:
+  simple_form:
+    labels:
+      user:
+        name: Nome
+        email: E-mail
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        remember_me: Lembre-me
+    hints:
+      user:
+        name: 'Nome completo'
+        email: 'E-mail com o domínio'
+        password: 'Senha'
+        password_confirmation: 'Repita a senha'
+    placeholders:
+      user:
+        name: 'Nome'
+        email: 'email@dominio.com'
+        password: '*******'
+        password_confirmation: '*******'
