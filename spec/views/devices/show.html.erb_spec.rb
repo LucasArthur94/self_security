@@ -4,7 +4,7 @@ RSpec.describe "devices/show", type: :view do
   before(:each) do
     @device = assign(:device, Device.create!(
       :bluetooth_id => "Bluetooth",
-      :user => nil
+      :person => nil
     ))
   end
 

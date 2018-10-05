@@ -23,7 +23,7 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe PersonsController, type: :controller do
+RSpec.describe PeopleController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Person. As you add validations to Person, be sure to
@@ -38,7 +38,7 @@ RSpec.describe PersonsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # PersonsController. Be sure to keep this updated too.
+  # PeopleController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do

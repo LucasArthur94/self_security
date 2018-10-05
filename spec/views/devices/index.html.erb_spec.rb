@@ -5,11 +5,11 @@ RSpec.describe "devices/index", type: :view do
     assign(:devices, [
       Device.create!(
         :bluetooth_id => "Bluetooth",
-        :user => nil
+        :person => nil
       ),
       Device.create!(
         :bluetooth_id => "Bluetooth",
-        :user => nil
+        :person => nil
       )
     ])
   end

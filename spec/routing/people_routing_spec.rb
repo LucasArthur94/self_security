@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PersonsController, type: :routing do
+RSpec.describe PeopleController, type: :routing do
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/people").to route_to("people#index")
