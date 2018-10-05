@@ -1,4 +1,20 @@
 module ApplicationHelper
+  def resource_name
+    :user
+  end
+
+  def has_users?
+    User.count > 0
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
   def highlight_page_on_navigation(current_path)
     if current_page?(current_path)
       "nav-link active"

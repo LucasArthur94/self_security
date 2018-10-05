@@ -1,0 +1,12 @@
+.row
+  .col-md-6.offset-md-3.basic-modal
+    br/
+    = show_for @person do |s|
+        = s.attribute :name
+        = s.attribute :email
+    br/
+    .btn-group.float-right
+        = button_to 'Editar', edit_person_path(@person), { method: :get, class: 'btn btn-primary' }
+        = button_to 'Voltar', people_path, { method: :get, class: 'btn' }
+    .clearfix
+    br/

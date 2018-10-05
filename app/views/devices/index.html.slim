@@ -9,7 +9,7 @@ p#notice
           th scope="col" colspan="5"
             | Bluetooth ID
           th scope="col" colspan="5"
-            | Usuário assosciado
+            | Usuário associado
           th scope="col" colspan="2"
             | Ações
       tbody
@@ -18,7 +18,7 @@ p#notice
             td colspan="5"
               = device.bluetooth_id
             td colspan="5"
-              = device.user
+              = link_to device.person.name, device.person
             td colspan="2"
               = link_to 'Ver mais', device
               = " | "

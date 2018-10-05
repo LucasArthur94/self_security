@@ -1,0 +1,13 @@
+= simple_form_for(@device) do |f|
+    = f.error_notification
+    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
+    .form-inputs
+      = f.input :bluetooth_id, required: true
+      = f.association :person
+    .form-actions
+      = f.button :submit
+
+javascript:
+    $(document).ready(() => {
+        $('#device_bluetooth_id').mask('99:99:99:99:99:aa');
+    });

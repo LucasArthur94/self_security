@@ -17,14 +17,20 @@ ActiveRecord::Schema.define(version: 2018_09_24_170654) do
 
   create_table "devices", force: :cascade do |t|
     t.string "bluetooth_id"
-    t.bigint "user_id"
+    t.bigint "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_devices_on_user_id"
+    t.index ["person_id"], name: "index_devices_on_person_id"
+  end
+
+  create_table "people", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
@@ -36,5 +42,5 @@ ActiveRecord::Schema.define(version: 2018_09_24_170654) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "devices", "users"
+  add_foreign_key "devices", "people"
 end

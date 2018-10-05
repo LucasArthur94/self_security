@@ -1,4 +1,4 @@
-= simple_form_for(@user) do |f|
+= simple_form_for(@person) do |f|
     = f.error_notification
     = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
     .form-inputs
@@ -6,4 +6,4 @@
         = f.input :email
     .form-actions.float-right
         = f.button :submit, 'Salvar', { class: 'btn btn-primary' }
-        = link_to 'Voltar', users_path, { method: :get, class: 'btn' }
+        = link_to 'Voltar', people_path, { method: :get, class: 'btn' }

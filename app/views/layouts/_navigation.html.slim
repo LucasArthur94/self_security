@@ -6,6 +6,12 @@
         li.nav-item
           = link_to "Início", home_path, class: highlight_page_on_navigation(home_path)
         li.nav-item
-          = link_to "Usuários", users_path, class: highlight_page_on_navigation(users_path)
+          = link_to "Usuários", people_path, class: highlight_page_on_navigation(people_path)
         li.nav-item
           = link_to "Dispositivos", devices_path, class: highlight_page_on_navigation(devices_path)
+        - if current_user
+          li.nav-item
+            = link_to 'Sair', destroy_user_session_path, method: :delete, class: "nav-link"
+        - else
+          li.nav-item
+            = link_to 'Entrar', new_user_session_path, class: "nav-link"

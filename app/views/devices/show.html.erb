@@ -1,7 +1,0 @@
-<%= show_for @device do |s| %>
-  <%= s.attribute :bluetooth_id %>
-  <%= s.association :user %>
-<% end %>
-
-<%= link_to 'Edit', edit_device_path(@device) %> |
-<%= link_to 'Back', devices_path %>

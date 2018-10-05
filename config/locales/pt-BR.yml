@@ -1,16 +1,19 @@
 pt-BR:
   activerecord:
     models:
-      user:
+      person:
         one: Usuário
         other: Usuários
       device:
         one: Dispositivo
         other: Dispositivos
     attributes:
-      user:
+      person:
         name: Nome
         email: E-mail
+      device:
+        bluetooth_id: Endereço MAC Bluetooth
+        person: Usuário associado
     errors:
       messages:
         not_saved: 'Não salvo'

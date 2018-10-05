@@ -1,0 +1,12 @@
+.row
+  .col-md-6.offset-md-3.basic-modal
+    br/
+    = show_for @device do |s|
+        = s.attribute :bluetooth_id
+        = s.association :person
+    br/
+    .btn-group.float-right
+        = button_to 'Editar', edit_device_path(@device), { method: :get, class: 'btn btn-primary' }
+        = button_to 'Voltar', devices_path, { method: :get, class: 'btn' }
+    .clearfix
+    br/
