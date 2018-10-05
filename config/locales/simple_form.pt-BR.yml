@@ -1,20 +1,32 @@
 pt-BR:
   simple_form:
     labels:
-      user:
+      person:
         name: Nome
         email: E-mail
         password: Senha
         password_confirmation: Confirmação de Senha
         remember_me: Lembre-me
-    hints:
       user:
+        email: E-mail
+        password: Senha
+        password_confirmation: Confirmação de Senha
+        remember_me: Lembre-me
+      device:
+        bluetooth_id: Endereço MAC Bluetooth
+        person: Usuário associado
+    hints:
+      person:
         name: 'Nome completo'
         email: 'E-mail com o domínio'
         password: 'Senha'
         password_confirmation: 'Repita a senha'
-    placeholders:
       user:
+        email: 'E-mail com o domínio'
+        password: 'Senha cadastrada'
+        password_confirmation: 'Repita a senha'
+    placeholders:
+      person:
         name: 'Nome'
         email: 'email@dominio.com'
         password: '*******'

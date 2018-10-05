@@ -10,18 +10,19 @@
         = f.input :email, required: true, autofocus: true
 
         - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-          p Currently waiting confirmation for: <%= resource.unconfirmed_email
+          p
+            = "Currently waiting confirmation for: #{resource.unconfirmed_email}"
 
         = f.input :password,
           hint: "deixe em branco se desejar manter a senha",
           required: false
           input_html: { autocomplete: "new-password" }
         = f.input :password_confirmation,
-          hint: "digite a nova senha",
+          hint: "repita a nova senha para confirmar",
           required: false,
           input_html: { autocomplete: "new-password" }
         = f.input :current_password,
-          hint: "repita a nova senha para confirmar",
+          hint: "digite a sua senha antiga para validar as alterações",
           required: true,
           input_html: { autocomplete: "current-password" }
       .form-actions

@@ -70,6 +70,6 @@ class DevicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
-      params.require(:device).permit(:bluetooth_id, :user_id)
+      params.require(:device).permit(:bluetooth_id, :person_id)
     end
 end

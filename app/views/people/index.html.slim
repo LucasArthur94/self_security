@@ -2,7 +2,7 @@ p#notice
   = notice
 .col-md-12
   h1.text-center Usuários
-  - if @users.present?
+  - if @people.present?
     table.table
       thead
         tr scope="row"
@@ -13,21 +13,21 @@ p#notice
           th scope="col" colspan="2"
             | Ações
       tbody
-        - @users.each do |user|
+        - @people.each do |person|
           tr scope="row"
             td colspan="5"
-              = user.name
+              = person.name
             td colspan="5"
-              = user.email
+              = person.email
             td colspan="2"
-              = link_to 'Ver mais', user
+              = link_to 'Ver mais', person
               = " | "
-              = link_to 'Editar', edit_user_path(user)
+              = link_to 'Editar', edit_person_path(person)
               = " | "
-              = link_to 'Apagar', user, method: :delete, data: { confirm: 'Você tem certeza?' }
+              = link_to 'Apagar', person, method: :delete, data: { confirm: 'Você tem certeza?' }
   - else
     br/
     h3.text-center Não há usuários
   br/
   .text-center
-    = button_to 'Novo usuário', new_user_path, { method: :get, class: 'btn btn-primary' }
+    = button_to 'Novo usuário', new_person_path, { method: :get, class: 'btn btn-primary' }
