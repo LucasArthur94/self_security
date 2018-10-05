@@ -9,5 +9,11 @@
 
 javascript:
     $(document).ready(() => {
-        $('#device_bluetooth_id').mask('99:99:99:99:99:aa');
+        $('#device_bluetooth_id').mask('FF:FF:FF:FF:FF:FF', {
+            translation: {
+              'F': {
+                pattern: /[a-fA-f0-9]/, optional: true
+              }
+            }
+          });
     });
