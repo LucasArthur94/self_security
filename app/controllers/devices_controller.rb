@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  protect_from_forgery with: :null_session, prepend: true
   before_action :authenticate_user!
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
