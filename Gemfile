@@ -33,6 +33,8 @@ gem 'rails', '~> 5.2.1'
 gem 'sass-rails', '~> 5.0'
 # Use Simple Form to make forms easier
 gem 'simple_form'
+# Token authentication
+gem 'simple_token_authentication', '~> 1.0'
 # Use Show For to make show pages easier
 gem 'show_for'
 # Use SLIM for better page write

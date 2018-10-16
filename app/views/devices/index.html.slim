@@ -17,8 +17,12 @@ p#notice
           tr scope="row"
             td colspan="5"
               = device.bluetooth_id
-            td colspan="5"
-              = link_to device.person.name, device.person
+            - if device.person
+              td colspan="5"
+                = link_to device.person.name, device.person
+            - else
+              td colspan="5"
+                = 'Sem usuário associado'
             td colspan="2"
               = link_to 'Ver mais', device
               = " | "
