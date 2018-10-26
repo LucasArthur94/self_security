@@ -29,11 +29,17 @@ RSpec.describe PeopleController, type: :controller do
   # Person. As you add validations to Person, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'Usuário Teste',
+      email: 'convidado_externo@teste.com'
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: nil,
+      email: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -41,9 +47,23 @@ RSpec.describe PeopleController, type: :controller do
   # PeopleController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:valid_header) { {
+    'X-User-Email' => 'teste@teste.com.br',
+    'X-User-Token' => 'tokenselfsecurity',
+  } }
+
+  before(:all) do
+    User.create!({email: 'teste@teste.com.br', password: 'testeselfsecurity', password_confirmation: 'testeselfsecurity', authentication_token: 'tokenselfsecurity'})
+  end
+
+  after(:all) do
+    User.destroy_all
+  end
+
   describe "GET #index" do
     it "returns a success response" do
       Person.create! valid_attributes
+      request.headers.merge! valid_header
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -52,6 +72,7 @@ RSpec.describe PeopleController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       person = Person.create! valid_attributes
+      request.headers.merge! valid_header
       get :show, params: {id: person.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -59,6 +80,7 @@ RSpec.describe PeopleController, type: :controller do
 
   describe "GET #new" do
     it "returns a success response" do
+      request.headers.merge! valid_header
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -67,6 +89,7 @@ RSpec.describe PeopleController, type: :controller do
   describe "GET #edit" do
     it "returns a success response" do
       person = Person.create! valid_attributes
+      request.headers.merge! valid_header
       get :edit, params: {id: person.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -76,11 +99,13 @@ RSpec.describe PeopleController, type: :controller do
     context "with valid params" do
       it "creates a new Person" do
         expect {
+          request.headers.merge! valid_header
           post :create, params: {person: valid_attributes}, session: valid_session
         }.to change(Person, :count).by(1)
       end
 
       it "redirects to the created person" do
+        request.headers.merge! valid_header
         post :create, params: {person: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Person.last)
       end
@@ -88,8 +113,9 @@ RSpec.describe PeopleController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
+        request.headers.merge! valid_header
         post :create, params: {person: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to_not be_successful
       end
     end
   end
@@ -97,18 +123,24 @@ RSpec.describe PeopleController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'Usuário Teste Alterado',
+          email: 'convidado_externo_alterado@teste.com'
+        }
       }
 
       it "updates the requested person" do
         person = Person.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: person.to_param, person: new_attributes}, session: valid_session
         person.reload
-        skip("Add assertions for updated state")
+        expect(person.name).to be_eql 'Usuário Teste Alterado'
+        expect(person.email).to be_eql 'convidado_externo_alterado@teste.com'
       end
 
       it "redirects to the person" do
         person = Person.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: person.to_param, person: valid_attributes}, session: valid_session
         expect(response).to redirect_to(person)
       end
@@ -117,8 +149,9 @@ RSpec.describe PeopleController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         person = Person.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: person.to_param, person: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to_not be_successful
       end
     end
   end
@@ -127,12 +160,14 @@ RSpec.describe PeopleController, type: :controller do
     it "destroys the requested person" do
       person = Person.create! valid_attributes
       expect {
+        request.headers.merge! valid_header
         delete :destroy, params: {id: person.to_param}, session: valid_session
       }.to change(Person, :count).by(-1)
     end
 
     it "redirects to the people list" do
       person = Person.create! valid_attributes
+      request.headers.merge! valid_header
       delete :destroy, params: {id: person.to_param}, session: valid_session
       expect(response).to redirect_to(people_url)
     end

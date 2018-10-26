@@ -29,11 +29,17 @@ RSpec.describe DevicesController, type: :controller do
   # Device. As you add validations to Device, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      bluetooth_id: '00:00:00:00:00:00',
+      person_id: nil
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      bluetooth_id: nil,
+      person_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -41,9 +47,23 @@ RSpec.describe DevicesController, type: :controller do
   # DevicesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:valid_header) { {
+    'X-User-Email' => 'teste@teste.com.br',
+    'X-User-Token' => 'tokenselfsecurity',
+  } }
+
+  before(:all) do
+    User.create!({email: 'teste@teste.com.br', password: 'testeselfsecurity', password_confirmation: 'testeselfsecurity', authentication_token: 'tokenselfsecurity'})
+  end
+
+  after(:all) do
+    User.destroy_all
+  end
+
   describe "GET #index" do
     it "returns a success response" do
       Device.create! valid_attributes
+      request.headers.merge! valid_header
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -52,6 +72,7 @@ RSpec.describe DevicesController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       device = Device.create! valid_attributes
+      request.headers.merge! valid_header
       get :show, params: {id: device.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -59,6 +80,7 @@ RSpec.describe DevicesController, type: :controller do
 
   describe "GET #new" do
     it "returns a success response" do
+      request.headers.merge! valid_header
       get :new, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -67,6 +89,7 @@ RSpec.describe DevicesController, type: :controller do
   describe "GET #edit" do
     it "returns a success response" do
       device = Device.create! valid_attributes
+      request.headers.merge! valid_header
       get :edit, params: {id: device.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -76,11 +99,13 @@ RSpec.describe DevicesController, type: :controller do
     context "with valid params" do
       it "creates a new Device" do
         expect {
+          request.headers.merge! valid_header
           post :create, params: {device: valid_attributes}, session: valid_session
         }.to change(Device, :count).by(1)
       end
 
       it "redirects to the created device" do
+        request.headers.merge! valid_header
         post :create, params: {device: valid_attributes}, session: valid_session
         expect(response).to redirect_to(Device.last)
       end
@@ -88,8 +113,9 @@ RSpec.describe DevicesController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
+        request.headers.merge! valid_header
         post :create, params: {device: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to_not be_successful
       end
     end
   end
@@ -97,18 +123,23 @@ RSpec.describe DevicesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          bluetooth_id: '11:11:11:11:11:11',
+          person_id: nil
+        }
       }
 
       it "updates the requested device" do
         device = Device.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: device.to_param, device: new_attributes}, session: valid_session
         device.reload
-        skip("Add assertions for updated state")
+        expect(device.bluetooth_id).to be_eql '11:11:11:11:11:11'
       end
 
       it "redirects to the device" do
         device = Device.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: device.to_param, device: valid_attributes}, session: valid_session
         expect(response).to redirect_to(device)
       end
@@ -117,8 +148,9 @@ RSpec.describe DevicesController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         device = Device.create! valid_attributes
+        request.headers.merge! valid_header
         put :update, params: {id: device.to_param, device: invalid_attributes}, session: valid_session
-        expect(response).to be_successful
+        expect(response).to_not be_successful
       end
     end
   end
@@ -127,12 +159,14 @@ RSpec.describe DevicesController, type: :controller do
     it "destroys the requested device" do
       device = Device.create! valid_attributes
       expect {
+        request.headers.merge! valid_header
         delete :destroy, params: {id: device.to_param}, session: valid_session
       }.to change(Device, :count).by(-1)
     end
 
     it "redirects to the devices list" do
       device = Device.create! valid_attributes
+      request.headers.merge! valid_header
       delete :destroy, params: {id: device.to_param}, session: valid_session
       expect(response).to redirect_to(devices_url)
     end
