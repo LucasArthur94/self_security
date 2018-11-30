@@ -41,16 +41,16 @@ class DevicesController < ApplicationController
 
   # POST /verify
   # POST /verify.json
-  def veirfy
-    old_device = Device.find_by(bluetooth_id: params[:bluetooth_id])
+  def verify
+    old_device = Device.find_by(bluetooth_id: device_params[:bluetooth_id])
 
     if old_device && old_device.person
       respond_to do |format|
-        format.json { render json: 'Dispositivo autorizado!', status: :ok }
+        format.json { render json: { message: 'Dispositivo autorizado!' }, status: :ok }
       end
     else
       respond_to do |format|
-        format.json { render json: 'Dispositivo não autorizado!', status: :unauthorized }
+        format.json { render json: { message: 'Dispositivo não autorizado!' }, status: :unauthorized }
       end
     end
   end
