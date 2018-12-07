@@ -39,18 +39,30 @@ class DevicesController < ApplicationController
     end
   end
 
+  # Este método faz uma busca bulk e verifica se a lista de dispositivos passada
+  # está no sistema e é válida. Caso pelo menos 1 dispositivo esteja autorizado,
+  # a lista é aprovada (Status 200). Se não houver, ela é reprovada (Status 401).
+
   # POST /verify
   # POST /verify.json
   def verify
-    old_device = Device.find_by(bluetooth_id: device_params[:bluetooth_id])
+    old_devices = Device.where(bluetooth_id: bulk_params[:bluetooth_ids])
 
-    if old_device && old_device.person
+    bulk_authorization = old_devices.reduce do |old_device, authorized|
+      if old_device && old_device.person
+        authorized = authorized || true
+      else
+        authorized = authorized || false
+      end
+    end
+
+    if bulk_authorization
       respond_to do |format|
-        format.json { render json: { message: 'Dispositivo autorizado!' }, status: :ok }
+        format.json { render json: { message: 'Dispositivos autorizados!' }, status: :ok }
       end
     else
       respond_to do |format|
-        format.json { render json: { message: 'Dispositivo não autorizado!' }, status: :unauthorized }
+        format.json { render json: { message: 'Dispositivos não autorizados!' }, status: :unauthorized }
       end
     end
   end
@@ -88,5 +100,9 @@ class DevicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def device_params
       params.require(:device).permit(:bluetooth_id, :person_id)
+    end
+
+    def bulk_params
+      params.require(:device).permit(bluetooth_ids: [])
     end
 end
